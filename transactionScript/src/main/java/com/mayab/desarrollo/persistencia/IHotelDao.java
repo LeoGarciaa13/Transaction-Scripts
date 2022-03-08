@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public interface IHotelDao {
 	
-	ArrayList<Room> getAll(); 
+	ArrayList<Room> getAll();
+	Room searchById(int id); 
 	boolean add(Room room); 
 	boolean update(Room room); 
 	boolean delete(Room room); 

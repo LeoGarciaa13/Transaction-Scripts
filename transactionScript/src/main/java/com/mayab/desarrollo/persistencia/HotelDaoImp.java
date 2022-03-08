@@ -87,17 +87,116 @@ public class HotelDaoImp implements IHotelDao{
 
 	@Override
 	public boolean update(Room room) {
-		// TODO Auto-generated method stub
-		return false;
+		// 
+		Connection con = null; 
+		PreparedStatement stmt = null;
+		boolean resBool = false; 
+		
+		try {
+			con = getConnection();
+			stmt = con.prepareStatement("UPDATE ROOMS SET ROOM_TYPE = ?, PRICE = ?, BOOKED = ?  WHERE ID = ?", Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, room.getRoomType());
+			stmt.setInt(2, room.getPrice());
+			stmt.setBoolean(3, room.isBooked());
+			stmt.setInt(4, room.getId());
+			
+			int result = stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			
+			if(rs.next()) {
+				resBool = true;
+				System.out.println("Room updated with success....");
+				
+			}
+		}catch(SQLException e) {
+				throw new RuntimeException(e);
+				
+		}finally {
+			close(con);
+		}
+		return resBool;
 	}
 
 	@Override
 	public boolean delete(Room room) {
-		// TODO Auto-generated method stub
-		return false;
+		// 
+		Connection con = null; 
+		PreparedStatement stmt = null;
+		boolean resBool = false; 
+		
+		try {
+			con = getConnection();
+			stmt = con.prepareStatement("DELETE FROM ROOMS WHERE ID = ?", Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, room.getId());
+			
+			int result = stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			
+			if(rs.next()) {
+				resBool = true;
+				System.out.println("Room deleted with success....");
+				
+			}
+		}catch(SQLException e) {
+				throw new RuntimeException(e);
+				
+		}finally {
+			close(con);
+		}
+		return resBool;
 	}
+
+	@Override
+	public Room searchById(int id) {
+		Connection con = null; 
+		PreparedStatement stmt = null;
+		ResultSet rs;
+		boolean result = false;
+
+		Room retrieved = null;
+
+		try {
+			// Start con
+			con = getConnection();
+			// Declare statement query to run
+			stmt = con.prepareStatement("SELECT * from Room WHERE id = ?");
+			// Set the values to match in the ? on query
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+
+			// Obtain the pointer to the data in generated table
+			rs.next();
+
+			int retrivedId = rs.getInt(1);
+			String retrivedRoomType = rs.getString(2);
+			int retrivedPrice = rs.getInt(3);
+			boolean retrivedBookedStatus = rs.getBoolean(4);
+
+			retrieved = new Room(retrivedId, retrivedRoomType, retrivedPrice, retrivedBookedStatus);
+
+			// Return the values of the search
+			System.out.println("\n");
+			System.out.println("---Room---");
+			System.out.println("ID: " + retrieved.getId());
+			System.out.println("Type: " + retrieved.getRoomType());
+			System.out.println("Price: " + retrieved.getPrice());
+			System.out.println("Booked: " + retrieved.isBooked() + "\n");
+			// Close connection with the database
+			con.close();
+			rs.close();
+			stmt.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		// Return statement
+		return retrieved;
+	}
+	
+}
+	
 	
 	
 	
 
-}
+
