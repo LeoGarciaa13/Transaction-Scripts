@@ -15,7 +15,7 @@ public class HotelDaoImp implements IHotelDao{
 	
 	private ArrayList<Room> rooms;
 	private static final String DRIVER_NAME = "com.sqlite.jdbc.Driver";
-	private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Martin Garcia Nava\\OneDrive - AG-ALL TI S DE RL DE CV\\Leo\\Anahuac 6to Semestre\\Desarrollo Software\\hotel.db";
+	private static final String DB_URL = "jdbc:sqlite:D:\\Eclipse\\Desarrollo\\Transaction-Scripts\\transactionScript\\database\\Hotel.db";
 	private static final String ID = "";
 	private static final String PASS = "";
 	
@@ -62,7 +62,7 @@ public class HotelDaoImp implements IHotelDao{
 		
 		try {
 			con = getConnection();
-			stmt = con.prepareStatement("INSERT INTO libros(roomType, price, booked) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement("INSERT INTO ROOMS(roomType, price, booked) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, room.getRoomType());
 			stmt.setInt(2, room.getPrice());
 			stmt.setBoolean(3, room.isBooked());
