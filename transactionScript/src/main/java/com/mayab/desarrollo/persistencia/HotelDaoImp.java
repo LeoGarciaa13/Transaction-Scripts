@@ -159,7 +159,7 @@ public class HotelDaoImp implements IHotelDao{
 			// Start con
 			con = getConnection();
 			// Declare statement query to run
-			stmt = con.prepareStatement("SELECT * from Room WHERE id = ?");
+			stmt = con.prepareStatement("SELECT * FROM ROOMS WHERE id = ?");
 			// Set the values to match in the ? on query
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
