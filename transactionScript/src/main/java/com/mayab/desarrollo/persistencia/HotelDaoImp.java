@@ -15,7 +15,7 @@ public class HotelDaoImp implements IHotelDao{
 	
 	private ArrayList<Room> rooms;
 	private static final String DRIVER_NAME = "com.sqlite.jdbc.Driver";
-	private static final String DB_URL = "jdbc:sqlite:D:\\Eclipse\\Desarrollo\\Transaction-Scripts\\transactionScript\\database\\Hotel.db";
+	private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Martin Garcia Nava\\OneDrive - AG-ALL TI S DE RL DE CV\\Leo\\Anahuac 6to Semestre\\Desarrollo Software\\transaction-scripts\\transactionScript\\database\\Hotel.db";
 	private static final String ID = "";
 	private static final String PASS = "";
 	
